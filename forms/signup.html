@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Signup</title>
+</head>
+
+<body>
+    <h1>Signup Form Account Registration</h1>
+    <form action="/signup" method="POST">
+
+        <label>FirstName:</label></br>
+        <input id="name" type="text" name="firstName" required="required" /></br></br>
+
+        <label>LastName:</label></br>
+        <input type="text" name="lastName" /></br></br>
+
+        <label>UserName:</label></br>
+        <input type="text" name="user_name" required /></br></br>
+
+        <label>Email:</label></br>
+        <input type="email" name="email" required="required" /></br></br>
+
+        <label>Password:</label></br>
+        <input type="password" name="password" required="required" /></br></br>
+
+        <label>Gender:</label></br>
+        <input type="radio" name="gender" value="Male" />Male
+        <input type="radio" name="gender" value="Female" />Female</br></br>
+
+        <label>Please select city: </label></br>
+        <select name="Cities">
+            <option value="karachi">Karachi</option>
+            <option value="hyderabad">Hyderabad</option>
+            <option value="sukkur">Sukkur</option>
+        </select></br></br>
+
+        <label>Upload your recent photograph</label> </br> </br>
+        <input type="file" name="picture" value="Browse" /><br /></br>
+
+        <input type="checkbox" name="terms&condition" value="agree to terms and condition" /> I am agree with the
+        terms and conditions<br /></br>
+
+        <input type="submit" value="Create Account" name="createAccount" />
+    </form>
+
+</body>
+
+</html>

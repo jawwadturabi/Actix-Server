@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login App</title>
+</head>
+
+<body>
+    <h1>Welcome to Rust App</h1>
+    <form action="/login" method="POST">
+        <label>Username:</label><br>
+        <input type="text" name="user_name" placeholder="Enter Username..." required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password" placeholder="Enter password..." required><br>
+
+        <input type="submit" value="login"><br>
+        <h3>Login Failed. Account not found, Please Signup First</h3>
+    </form>
+    <form action="/signup" method="GET">
+        <br><input type="submit" value="Signup">
+    </form>
+</body>
+
+</html>
