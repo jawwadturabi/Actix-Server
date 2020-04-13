@@ -1,21 +1,32 @@
-use actix_files::NamedFile;
-use actix_web::{HttpRequest, Result};
-use std::fs::File;
-use std::io::{self, Write};
+use actix_web::{post, get, App, HttpServer, HttpResponse, Error, web};
+use serde::Deserialize;
 
-async fn index(req: HttpRequest) -> Result<NamedFile> {
-    // let path: PathBuf = req.match_info().query("index").parse().unwrap();
-    let mut file = File::create("foo.txt")?;
-    file.write_all(b"Hello, world!")?;
-    Ok(NamedFile::from_file(file, "bar.txt")?)
+#[derive(Deserialize)]
+struct FormData {
+    user_name: String,
+    password: String
+}
+
+#[post("/login")]
+async fn index(params: web::Form<FormData>)->Result<HttpResponse,Error>{
+    println!("name is {} \npass is : {}",params.user_name,params.password);
+    Ok(HttpResponse::Ok().body("login successful"))
+}
+#[get("/")]
+async fn index1()-> Result<HttpResponse,Error>{
+     Ok(HttpResponse::Ok()
+        .content_type("text/html; charset=utf-8")
+        .body(include_str!("./index.html")))
 }
 
 #[actix_rt::main]
-async fn main() -> std::io::Result<()> {
-    use actix_web::{web, App, HttpServer};
+async fn main()-> std::io::Result<()> {
+    HttpServer::new(|| {
+            App::new().service(index)
+            .service(index1)
 
-    HttpServer::new(|| App::new().route("/", web::get().to(index)))
-        .bind("127.0.0.1:8088")?
-        .run()
-        .await
+    })
+    .bind("127.0.0.1:8088")?
+    .run()
+    .await
 }
