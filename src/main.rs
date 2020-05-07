@@ -28,7 +28,7 @@ struct SignupFormData {
 async fn index3(params: web::Form<SignupFormData>)->Result<HttpResponse,Error>{
     println!("name is {} \npass is : {}",params.user_name,params.password);
     let user_name = &params.user_name;
-    let password = &params.password;
+    let password = &params.password;String::from_utf8(entire_body.unwrap()).unwrap()
     let email = &params.email;
     let docs = doc! { "user_name": user_name, "password": password, "email":email };
     // let data = db.collection("user_details").insert_one(docs, None).unwrap();
@@ -71,32 +71,32 @@ async fn main()-> std::io::Result<()> {
     
     //tried with thread sharing
 
-    let (tx, rx) = mpsc::channel();
-    thread::spawn(|| {
-        let client= Client::with_uri_str("mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true&w=majority").expect("Failed to connect");
-    let db = client.database("test").collection("user_details");
-        tx.send(db).unwrap();
-});
+//     let (tx, rx) = mpsc::channel();
+//     thread::spawn(|| {
+//         let client= Client::with_uri_str("mongodb+srv://author:author123@cluster0-geoiq.mongodb.net/test?retryWrites=true&w=majority").expect("Failed to connect");
+//     let db = client.database("test").collection("user_details");
+//         tx.send(db).unwrap();
+// });
 
-let mut  server =  HttpServer::new(|| {
-            App::new()
-            .data(rx.recv().unwrap())
-            .service(index)
-            .service(index1)
-            .service(index2)
-            .service(index3)
-        });
-    
-// tried with normal
-
-
-// let mut  server =  HttpServer::new(move|| {
+// let mut  server =  HttpServer::new(|| {
 //             App::new()
+//             .data(rx.recv().unwrap())
 //             .service(index)
 //             .service(index1)
 //             .service(index2)
 //             .service(index3)
 //         });
+    
+// tried with normal
+
+
+let mut  server =  HttpServer::new(move|| {
+            App::new()
+            .service(index)
+            .service(index1)
+            .service(index2)
+            .service(index3)
+        });
 
 
     let mut listenfd = ListenFd::from_env();  
